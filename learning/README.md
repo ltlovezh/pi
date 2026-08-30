@@ -24,7 +24,9 @@ earendil-works/pi (upstream)
 - `origin` = `ltlovezh/pi`（我的 fork，`main` / `diy` 都推这里；fetch 走 https，push 走 ssh）
 - `upstream` = `earendil-works/pi`（原始仓库，push 地址已禁用，防止误推）
 
-diy 的全部改动都收在 `learning/` 一个目录里，上游永远不会碰到这个路径，所以 rebase 到新的 `main` 上不会有冲突。
+目前 `diy` 的改动都收在 `learning/` 一个目录里，上游不碰这个路径，所以 rebase 到新的 `main` 上不会冲突。
+
+但这是自律约定而非结构保证：一旦开始直接改上游代码（学习时加打印、插桩都很正常），那些文件在 rebase 时就可能冲突。查当前偏离：`git diff --name-only main..diy | grep -v '^learning/'`，输出为空就是还守着约定。
 
 ## 本目录的 .gitignore
 
