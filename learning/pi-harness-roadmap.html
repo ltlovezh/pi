@@ -1,0 +1,1279 @@
+<title>Pi Harness 研习路线</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --ground:      #F4F6F4;
+  --surface:     #FFFFFF;
+  --surface-sub: #EDF1EE;
+  --ink:         #171C1A;
+  --ink-mid:     #3D4844;
+  --ink-mute:    #5F6B67;
+  --rule:        #DCE3DF;
+  --rule-soft:   #E7ECE9;
+  --accent:      #0E6155;
+  --accent-soft: #DDEDE8;
+  --lab:         #8A570F;
+  --lab-soft:    #F5EADA;
+  --warn:        #9B3A31;
+  --shadow:      0 1px 2px rgba(23,28,26,.05), 0 8px 24px -18px rgba(23,28,26,.28);
+
+  --f-display: "Newsreader", "Songti SC", "Noto Serif CJK SC", Georgia, serif;
+  --f-body:    "IBM Plex Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, "PingFang SC", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #101614;
+    --surface:     #171E1B;
+    --surface-sub: #1D2622;
+    --ink:         #E3EAE7;
+    --ink-mid:     #B7C3BE;
+    --ink-mute:    #8B9994;
+    --rule:        #2A3531;
+    --rule-soft:   #212B27;
+    --accent:      #56C9AE;
+    --accent-soft: #17332D;
+    --lab:         #DCA954;
+    --lab-soft:    #2E2718;
+    --warn:        #E4897E;
+    --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #101614;
+  --surface:     #171E1B;
+  --surface-sub: #1D2622;
+  --ink:         #E3EAE7;
+  --ink-mid:     #B7C3BE;
+  --ink-mute:    #8B9994;
+  --rule:        #2A3531;
+  --rule-soft:   #212B27;
+  --accent:      #56C9AE;
+  --accent-soft: #17332D;
+  --lab:         #DCA954;
+  --lab-soft:    #2E2718;
+  --warn:        #E4897E;
+  --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 3rem) 5rem;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: 2.25rem; }
+
+.kicker {
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.1rem;
+}
+
+h1 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6.5vw, 4.1rem);
+  line-height: 1.06;
+  letter-spacing: -.015em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+
+.standfirst {
+  font-size: clamp(1.02rem, 1.6vw, 1.16rem);
+  color: var(--ink-mid);
+  max-width: 62ch;
+  margin: 0 0 2rem;
+}
+.standfirst strong { color: var(--ink); font-weight: 600; }
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 2.25rem;
+  font-family: var(--f-mono);
+  font-size: .78rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+}
+.facts b { color: var(--ink); font-weight: 500; }
+
+/* ---------- layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: 186px minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  margin-top: 3rem;
+  align-items: start;
+}
+
+.rail { position: sticky; top: 1.75rem; }
+
+.rail h2 {
+  font-family: var(--f-mono);
+  font-size: .7rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin: 0 0 .9rem;
+}
+
+.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+
+.rail a {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  align-items: baseline;
+  gap: .1rem;
+  padding: .3rem .45rem .3rem 0;
+  color: var(--ink-mid);
+  text-decoration: none;
+  font-size: .855rem;
+  line-height: 1.45;
+  border-radius: 3px;
+}
+.rail a:hover { color: var(--accent); }
+.rail a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rail a span:first-child {
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+.main { min-width: 0; }
+
+/* ---------- generic prose ---------- */
+
+.main > section { margin-bottom: 4.25rem; }
+
+h2.sec {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+
+.main p { max-width: 68ch; margin: 0 0 1.05rem; }
+.main p:last-child { margin-bottom: 0; }
+
+code, .mono { font-family: var(--f-mono); font-size: .855em; }
+
+.main :not(pre) > code {
+  background: var(--surface-sub);
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  padding: .08em .34em;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+a.ext { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a.ext:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- figures ---------- */
+
+figure {
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+figure svg { display: block; max-width: 100%; height: auto; margin: 0 auto; color: var(--ink-mid); }
+figcaption {
+  font-size: .845rem;
+  color: var(--ink-mute);
+  line-height: 1.6;
+  margin-top: 1.1rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--rule-soft);
+  max-width: 70ch;
+}
+.svg-box { fill: var(--surface); stroke: var(--ink-mid); stroke-width: 1; }
+.svg-box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.25; }
+.svg-box-dim { fill: var(--surface-sub); stroke: var(--rule); stroke-width: 1; }
+.svg-frame { fill: none; stroke: var(--ink-mute); stroke-width: 1; stroke-dasharray: 4 4; }
+.svg-t { font-family: var(--f-body); font-size: 12.5px; fill: var(--ink); }
+.svg-t-sm { font-family: var(--f-mono); font-size: 10.5px; fill: var(--ink-mute); letter-spacing: .04em; }
+.svg-t-accent { font-family: var(--f-mono); font-size: 11px; fill: var(--accent); }
+.svg-line { stroke: var(--ink-mid); stroke-width: 1.25; fill: none; }
+.svg-line-accent { stroke: var(--accent); stroke-width: 1.4; fill: none; }
+
+/* ---------- stage spine ---------- */
+
+.stages { position: relative; padding-left: 3.4rem; }
+.stages::before {
+  content: "";
+  position: absolute;
+  left: 1.18rem;
+  top: 1.4rem;
+  bottom: 2.5rem;
+  width: 1px;
+  background: var(--rule);
+}
+
+.stage {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.6rem clamp(1.1rem, 2.6vw, 1.9rem) 1.7rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.stage::before {
+  content: attr(data-n);
+  position: absolute;
+  left: -3.4rem;
+  top: 1.45rem;
+  width: 2.36rem;
+  height: 2.36rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 1px solid var(--rule);
+  color: var(--ink-mute);
+  font-family: var(--f-mono);
+  font-size: .76rem;
+  font-variant-numeric: tabular-nums;
+}
+.stage.key::before { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.stage.final::before { border-color: var(--lab); color: var(--lab); background: var(--lab-soft); }
+
+.stage-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .4rem 1.25rem;
+  margin-bottom: .35rem;
+}
+.stage h3 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.32rem;
+  line-height: 1.28;
+  margin: 0;
+  letter-spacing: -.005em;
+  text-wrap: balance;
+}
+.dur {
+  font-family: var(--f-mono);
+  font-size: .73rem;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.qline {
+  margin: 0 0 1.15rem;
+  padding-left: .85rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-mid);
+  font-size: .96rem;
+  max-width: 66ch;
+}
+.qline b { color: var(--ink); font-weight: 600; }
+
+.block { margin-top: 1.15rem; }
+.block > h4 {
+  font-family: var(--f-mono);
+  font-size: .69rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 .55rem;
+  color: var(--accent);
+}
+.block.lab > h4 { color: var(--lab); }
+.block > p { font-size: .955rem; margin-bottom: .6rem; }
+.block > p:last-child { margin-bottom: 0; }
+
+ul.src { list-style: none; margin: 0; padding: 0; display: grid; gap: .42rem; }
+ul.src > li {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: .1rem .8rem;
+  font-size: .935rem;
+  line-height: 1.55;
+  align-items: baseline;
+}
+ul.src code {
+  font-size: .8rem;
+  white-space: nowrap;
+  color: var(--ink);
+  background: var(--surface-sub);
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  padding: .1em .4em;
+}
+ul.src > li > span { color: var(--ink-mid); }
+ul.src.tight { margin-top: .55rem; }
+
+ul.plain { margin: 0; padding-left: 1.15rem; display: grid; gap: .32rem; }
+ul.plain li { font-size: .955rem; line-height: 1.6; }
+ul.plain li::marker { color: var(--ink-mute); }
+
+ul.check { display: grid; gap: .38rem; margin: 0; padding: 0; list-style: none; }
+ul.check li {
+  position: relative;
+  padding-left: 1.35rem;
+  font-size: .945rem;
+  line-height: 1.6;
+  color: var(--ink-mid);
+}
+ul.check li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .55em;
+  width: .62rem; height: .62rem;
+  border: 1px solid var(--ink-mute);
+  border-radius: 2px;
+}
+
+.mirror {
+  margin-top: 1.15rem;
+  padding: .85rem 1rem;
+  background: var(--surface-sub);
+  border-radius: 4px;
+  font-size: .9rem;
+  line-height: 1.62;
+  color: var(--ink-mid);
+}
+.mirror b {
+  font-family: var(--f-mono);
+  font-size: .68rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: block;
+  margin-bottom: .3rem;
+  font-weight: 600;
+}
+
+/* ---------- pitfalls ---------- */
+
+ul.pitfalls { display: grid; gap: .75rem; margin: 0; padding: 0; list-style: none; }
+.pitfall {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .2rem 1rem;
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--warn);
+  border-radius: 5px;
+}
+.pitfall .no {
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  color: var(--warn);
+  padding-top: .28rem;
+  font-variant-numeric: tabular-nums;
+}
+.pitfall p { margin: 0 0 .3rem; font-size: .95rem; font-weight: 500; }
+.pitfall p.fix { margin: 0; font-size: .9rem; color: var(--ink-mid); font-weight: 400; }
+
+/* ---------- tables ---------- */
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 620px; }
+th, td { text-align: left; padding: .68rem .95rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+thead th {
+  font-family: var(--f-mono);
+  font-size: .69rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+  background: var(--surface-sub);
+  white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; white-space: nowrap; color: var(--ink); }
+
+/* ---------- sources ---------- */
+
+ul.sources { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; font-size: .91rem; }
+ul.sources li { display: grid; grid-template-columns: 1.5rem 1fr; gap: .5rem; color: var(--ink-mid); }
+ul.sources .n { font-family: var(--f-mono); font-size: .72rem; color: var(--ink-mute); padding-top: .18rem; }
+
+footer.end {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: .85rem;
+  color: var(--ink-mute);
+  max-width: 68ch;
+}
+
+@media (max-width: 940px) {
+  .layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .rail { position: static; }
+  .rail ol { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .stages { padding-left: 0; }
+  .stages::before { display: none; }
+  .stage::before { position: static; margin-bottom: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Pi Agent Harness · v0.84.4 · 递进式源码研习</p>
+  <h1>Pi Harness 研习路线</h1>
+  <p class="standfirst">
+    对一个 coding agent 来说，模型只提供决策，<strong>harness 提供其余的一切</strong>：循环、工具、上下文预算、会话状态、错误恢复、扩展点。
+    对 Claude Code 的公开分析里有一个常被引用的比例——约 <strong>1.6% 的代码在处理 AI 决策逻辑，98.4% 是运行时基础设施</strong>；
+    同一个模型换一套 harness，基准分能相差十几个百分点。这份路线用十个阶段带你把 Pi 这套 harness 从外到内拆开。
+  </p>
+  <div class="facts">
+    <span><b>面向</b> harness 新手 / 有 TypeScript 基础</span>
+    <span><b>总时长</b> 约 16–24 天（每天 2–3 小时）</span>
+    <span><b>形式</b> 读源码 → 动手改 → 自检 → 对照业界</span>
+    <span><b>产出</b> 一个自己的 mini harness</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <nav class="rail" aria-label="阶段索引">
+    <h2>阶段</h2>
+    <ol>
+      <li><a href="#why"><span>—</span><span>为什么读 Pi</span></a></li>
+      <li><a href="#model"><span>—</span><span>分层心智模型</span></a></li>
+      <li><a href="#s00"><span>00</span><span>建立地图</span></a></li>
+      <li><a href="#s01"><span>01</span><span>Agent Loop</span></a></li>
+      <li><a href="#s02"><span>02</span><span>Provider 抽象</span></a></li>
+      <li><a href="#s03"><span>03</span><span>工具层</span></a></li>
+      <li><a href="#s04"><span>04</span><span>上下文与压缩</span></a></li>
+      <li><a href="#s05"><span>05</span><span>会话与分支树</span></a></li>
+      <li><a href="#s06"><span>06</span><span>扩展与技能</span></a></li>
+      <li><a href="#s07"><span>07</span><span>交互层</span></a></li>
+      <li><a href="#s08"><span>08</span><span>评测与安全</span></a></li>
+      <li><a href="#s09"><span>09</span><span>毕业项目</span></a></li>
+      <li><a href="#pitfalls"><span>—</span><span>常见误区</span></a></li>
+      <li><a href="#compare"><span>—</span><span>横向对照</span></a></li>
+      <li><a href="#sources"><span>—</span><span>参考资料</span></a></li>
+    </ol>
+  </nav>
+
+  <main class="main">
+
+    <!-- ============ WHY ============ -->
+    <section id="why">
+      <h2 class="sec">为什么拿 Pi 当教材</h2>
+      <p>
+        市面上能学的 harness 有三类：Claude Code 闭源，只能靠逆向分析；Codex CLI 开源但用 Rust 写，且深度绑定 OpenAI 自家形态；
+        DeepSeek Harness 走的是「一切皆插件」的极端可组合路线，抽象层多，对新手不友好。
+      </p>
+      <p>
+        Pi 的价值在于它<strong>刚好处在可通读的规模</strong>：核心循环 <code>agent-loop.ts</code> 只有 794 行，
+        分层边界清晰（<code>ai</code> → <code>agent</code> → <code>coding-agent</code>），文档就写在仓库里而不是官网上，
+        还配了 SDK 示例和 evals。你能在两三周内把一整条链路——从 HTTP 请求到终端里那一行字——完整走通，这在别的 harness 上很难做到。
+      </p>
+      <p>
+        更实际的一点：Pi 的 <code>AGENTS.md</code> 明确写着「核心保持小，能力靠扩展长出来」。
+        这意味着你读到的每一处复杂度，几乎都是<strong>被现实逼出来的</strong>，而不是架构洁癖。这正是学 harness 最需要的东西。
+      </p>
+    </section>
+
+    <!-- ============ MENTAL MODEL ============ -->
+    <section id="model">
+      <h2 class="sec">先建立分层心智模型</h2>
+      <p>
+        整份路线只围绕一个骨架展开。在读任何一行代码之前，先把这张图记住：<strong>越往下越无状态，越往上越有状态</strong>。
+        新手最容易犯的错，就是把上层的职责（会话、压缩、权限）错当成下层的问题去找。
+      </p>
+
+      <figure>
+        <svg viewBox="0 0 700 380" role="img" aria-label="Pi 的五层运行时：调用方、coding-agent 会话层、agent-core 循环层、ai provider 层、provider HTTP API；agent-core 与 ai 之间由 convertToLlm 完成 AgentMessage 到 Message 的唯一格式转换">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+            </marker>
+          </defs>
+
+          <rect class="svg-box-dim" x="40" y="24" width="400" height="52" rx="4"></rect>
+          <text class="svg-t" x="60" y="46">调用方 · TUI / print / JSON / RPC / SDK</text>
+          <text class="svg-t-sm" x="60" y="64">有 UI，有人在看</text>
+
+          <rect class="svg-box" x="40" y="90" width="400" height="52" rx="4"></rect>
+          <text class="svg-t" x="60" y="112">AgentSession — 工具装配 · 会话 · 压缩 · 扩展</text>
+          <text class="svg-t-sm" x="60" y="130">packages/coding-agent</text>
+
+          <rect class="svg-box-accent" x="40" y="156" width="400" height="52" rx="4"></rect>
+          <text class="svg-t" x="60" y="178">Agent + agentLoop — 回合 · 事件 · 队列</text>
+          <text class="svg-t-sm" x="60" y="196">packages/agent</text>
+
+          <rect class="svg-box" x="40" y="222" width="400" height="52" rx="4"></rect>
+          <text class="svg-t" x="60" y="244">Models.stream — 30+ provider 归一</text>
+          <text class="svg-t-sm" x="60" y="262">packages/ai</text>
+
+          <rect class="svg-box-dim" x="40" y="288" width="400" height="52" rx="4"></rect>
+          <text class="svg-t" x="60" y="310">Provider HTTP API</text>
+          <text class="svg-t-sm" x="60" y="328">完全无状态：context in → tokens out</text>
+
+          <line class="svg-line" x1="240" y1="76" x2="240" y2="88" marker-end="url(#ar)"></line>
+          <line class="svg-line" x1="240" y1="142" x2="240" y2="154" marker-end="url(#ar)"></line>
+          <line class="svg-line-accent" x1="240" y1="208" x2="240" y2="220" marker-end="url(#ar)"></line>
+          <line class="svg-line" x1="240" y1="274" x2="240" y2="286" marker-end="url(#ar)"></line>
+
+          <polyline class="svg-line-accent" points="252,214 468,214"></polyline>
+          <circle cx="468" cy="214" r="2.5" fill="var(--accent)"></circle>
+          <text class="svg-t-accent" x="478" y="209">convertToLlm()</text>
+          <text class="svg-t-sm" x="478" y="227">AgentMessage[] → Message[]</text>
+          <text class="svg-t-sm" x="478" y="243">全流程唯一的格式转换边界</text>
+
+          <text class="svg-t-sm" x="478" y="118">UI 专用消息在此被过滤掉</text>
+          <text class="svg-t-sm" x="478" y="318">每次请求都是全量重发</text>
+        </svg>
+        <figcaption>
+          五层运行时。下面两层是纯函数式的：给什么上下文，就得什么回复。上面两层负责「记住」——记住说过什么、改过哪些文件、还剩多少 token 预算。
+          <code>convertToLlm()</code> 是二者之间唯一的翻译口子，读懂它就读懂了 Pi 的分层。
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ STAGES ============ -->
+    <section id="stages">
+      <h2 class="sec">十个阶段</h2>
+      <p>
+        每个阶段都是同一个结构：<strong>核心问题 → 读什么 → 动手 → 自检 → 业界对照</strong>。
+        「读什么」里的行号对应仓库当前状态（v0.84.4），改动后可能漂移几行，按函数名找即可。
+      </p>
+
+      <div class="stages">
+
+        <!-- 00 -->
+        <article class="stage" id="s00" data-n="00">
+          <div class="stage-head">
+            <h3>建立地图</h3>
+            <span class="dur">半天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>harness 到底包含什么？Pi 的九个包各自的边界在哪里？</p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>README.md</code><span>包清单、开发命令、供应链加固策略</span></li>
+              <li><code>AGENTS.md</code><span>项目铁律。注意「核心保持小、能力靠扩展」这条设计取向</span></li>
+              <li><code>packages/coding-agent/docs/index.md</code><span>全部文档的入口，先扫一遍标题建立索引</span></li>
+              <li><code>package.json</code><span>看 <code>build</code> 脚本——它的顺序就是包依赖顺序：tui → telemetry → ai → agent → sqlite → protocol → client → server → coding-agent</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li><code>npm install --ignore-scripts</code> 然后 <code>npm run build</code>。</li>
+              <li><code>./pi-test.sh</code> 从源码跑起来，随便问一句，看它调了哪些工具。</li>
+              <li>把 <code>build</code> 脚本的顺序抄成一张依赖图，标出每个包「对谁负责」。这张图后面九个阶段都要用。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>要新增一个 provider，改哪个包？要新增一个工具呢？要改压缩策略呢？</li>
+              <li><code>packages/agent</code> 和 <code>packages/coding-agent</code> 的分界线是什么？为什么前者根本不认识「文件」和「bash」？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            所有 harness 都可归结为四件必要设施：agent loop、tool interface、context management、control mechanisms。
+            读 Pi 时随时问自己：眼前这段代码属于哪一件？
+          </div>
+        </article>
+
+        <!-- 01 -->
+        <article class="stage key" id="s01" data-n="01">
+          <div class="stage-head">
+            <h3>Agent Loop：把无状态 API 变成 Agent</h3>
+            <span class="dur">1–2 天 · 最关键一站</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>LLM 的 HTTP 接口是无状态的「context in → tokens out」。到底是什么把它变成了一个能连续干几十步活的 agent？</p>
+
+          <p>答案就是一个循环。但真实的循环不止「调模型 → 执行工具 → 再调模型」这么简单——Pi 用了<strong>嵌套的两层</strong>，各自消费一种不同的队列。</p>
+
+          <figure>
+            <svg viewBox="0 0 500 600" role="img" aria-label="Pi agent loop 的双层结构：内层 while 循环处理工具调用与 steering 队列，外层 while true 在循环本该结束时检查 follow-up 队列，两者都把消息回灌到同一个注入点">
+              <defs>
+                <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+                </marker>
+              </defs>
+
+              <rect class="svg-frame" x="8" y="40" width="478" height="470" rx="6"></rect>
+              <text class="svg-t-sm" x="20" y="32">外层循环 · while (true)</text>
+
+              <rect class="svg-frame" x="56" y="76" width="306" height="330" rx="5"></rect>
+              <text class="svg-t-sm" x="96" y="70">内层 · while (hasMoreToolCalls ‖ pending)</text>
+
+              <rect class="svg-box" x="96" y="108" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="132" text-anchor="middle">注入 pending 消息</text>
+
+              <rect class="svg-box-accent" x="96" y="164" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="188" text-anchor="middle">流式取回 assistant 回复</text>
+
+              <rect class="svg-box" x="96" y="220" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="244" text-anchor="middle">有 toolCall？</text>
+
+              <rect class="svg-box" x="96" y="276" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="300" text-anchor="middle">执行工具批次（并行 / 串行）</text>
+
+              <rect class="svg-box" x="96" y="332" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="356" text-anchor="middle">toolResult 入 context · turn_end</text>
+
+              <line class="svg-line" x1="216" y1="146" x2="216" y2="162" marker-end="url(#ar2)"></line>
+              <line class="svg-line" x1="216" y1="202" x2="216" y2="218" marker-end="url(#ar2)"></line>
+              <line class="svg-line" x1="216" y1="258" x2="216" y2="274" marker-end="url(#ar2)"></line>
+              <text class="svg-t-sm" x="224" y="270">有</text>
+              <line class="svg-line" x1="216" y1="314" x2="216" y2="330" marker-end="url(#ar2)"></line>
+
+              <polyline class="svg-line" points="216,370 216,388 76,388 76,127 94,127" marker-end="url(#ar2)"></polyline>
+              <text class="svg-t-sm" x="68" y="258" text-anchor="middle" transform="rotate(-90 68 258)">轮询 steering 队列</text>
+
+              <polyline class="svg-line" points="336,239 430,239 430,420 216,420 216,438" marker-end="url(#ar2)"></polyline>
+              <text class="svg-t-sm" x="344" y="233">无</text>
+
+              <rect class="svg-box" x="96" y="440" width="240" height="40" rx="4"></rect>
+              <text class="svg-t" x="216" y="465" text-anchor="middle">有排队的 follow-up？</text>
+
+              <polyline class="svg-line-accent" points="96,460 28,460 28,117 94,117" marker-end="url(#ar2)"></polyline>
+              <text class="svg-t-accent" x="20" y="290" text-anchor="middle" transform="rotate(-90 20 290)">有 · follow-up 回灌</text>
+
+              <line class="svg-line" x1="216" y1="480" x2="216" y2="536" marker-end="url(#ar2)"></line>
+              <text class="svg-t-sm" x="224" y="512">无</text>
+
+              <rect class="svg-box-dim" x="96" y="538" width="240" height="38" rx="4"></rect>
+              <text class="svg-t" x="216" y="562" text-anchor="middle">agent_end</text>
+            </svg>
+            <figcaption>
+              两层循环，两种队列。<strong>steering</strong> 是「打断」——你在工具跑着的时候插一句话，它在每个回合结束时被轮询并注入下一轮；
+              <strong>follow-up</strong> 是「续杯」——循环本该退出了，它把你排队的任务塞回去再跑一轮。
+              区分这两者，是理解交互式 agent 手感的关键。
+            </figcaption>
+          </figure>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>packages/agent/README.md</code><span>先读完「Event Flow」整节。事件序列比源码更快建立直觉</span></li>
+              <li><code>agent-loop.ts:171</code><span><code>while (true)</code> 外层；<code>:175</code> 内层。上面那张图就是这两行</span></li>
+              <li><code>agent-loop.ts:172</code><span><code>hasMoreToolCalls = true</code> 初值为真——保证内层至少跑一轮</span></li>
+              <li><code>agent-loop.ts:212</code><span><code>streamAssistantResponse()</code>，唯一调用 LLM 的地方</span></li>
+              <li><code>agent-loop.ts:284</code><span>该函数内部：<code>transformContext</code> → <code>convertToLlm</code> → 组 <code>Context</code> → 解析 API key → 消费流</span></li>
+              <li><code>agent-loop.ts:230</code><span><strong>务必细读。</strong><code>stopReason === "length"</code> 时整批 tool call 直接判错</span></li>
+              <li><code>agent-loop.ts:235</code><span><code>hasMoreToolCalls = !terminate</code>——只有整批都 terminate 才提前收工</span></li>
+              <li><code>agent-loop.ts:409 / 487</code><span>并行与串行两种执行策略，以及单个工具如何把整批拉回串行</span></li>
+              <li><code>packages/agent/src/agent.ts</code><span><code>Agent</code> 类：在裸循环之上加状态、订阅、abort、队列管理</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>不看 Pi，用 <code>@earendil-works/pi-ai</code> 手写一个 60 行的最小循环：prompt → stream → 有 toolCall 就执行 → 结果塞回 messages → 再来一轮。给它一个 <code>read_file</code> 工具就够。</li>
+              <li>写完后逐行对照 <code>agent-loop.ts</code>，列出 Pi 多做的事。至少能列出十条：事件发射、steering、follow-up、terminate、截断保护、并行执行、abort 传播、apiKey 动态解析、context 转换钩子、回合前准备。</li>
+              <li>把 <code>agent-loop.ts:230</code> 那个截断保护临时删掉，构造一个 <code>maxTokens</code> 极小的请求，看会发生什么。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>steering 和 follow-up 分别在循环的哪一行被消费？为什么必须放在不同层？</li>
+              <li>为什么 <code>terminate</code> 要求「整批工具结果都 terminate」才生效，而不是任意一个？</li>
+              <li><code>agentLoop()</code> 和 <code>agentLoopContinue()</code> 的区别是什么？后者为什么要求最后一条消息不能是 assistant？</li>
+              <li>响应被 token 上限截断时，为什么<strong>参数能解析成功也不能执行</strong>？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            这个结构就是 ReAct（reason + act）循环的工程化版本：plan → act → observe → loop。
+            OpenAI 那篇《Unrolling the Codex agent loop》讲的是同一件事，但 Codex 走的是 reasoning loop 与 tool execution 解耦的分离式架构（为了 Zero Data Retention 做无状态请求）；
+            Pi 把两者放在同一进程里，换来的是更简单的事件模型和更好的可读性。
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="stage" id="s02" data-n="02">
+          <div class="stage-head">
+            <h3>Provider 抽象层</h3>
+            <span class="dur">1–2 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>三十多家 provider 的流式协议、tool call 格式、thinking 参数、计费字段全都不一样。怎么归一成一套接口，又不丢失各家的特性？</p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>packages/ai/README.md</code><span>目录就是这一层的能力清单：auth 解析、tools、image、thinking、stop reason、跨 provider 交接</span></li>
+              <li><code>packages/ai/src/types.ts</code><span><code>Context</code> / <code>Message</code> / <code>Usage</code> / <code>StopReason</code>。整个 Pi 的公共词汇表</span></li>
+              <li><code>src/api/anthropic-messages.ts</code><span>对照 <code>src/api/openai-responses.ts</code>：同一套事件流的两种实现</span></li>
+              <li><code>src/providers/faux.ts</code><span>测试用假 provider。想快速看清接口边界，读它最省时间</span></li>
+              <li><code>src/api/transform-messages.ts</code><span>跨 provider 交接时消息如何改写</span></li>
+              <li><code>src/models.generated.ts</code><span>只读不改。要改去改 <code>scripts/generate-models.ts</code> 再重新生成</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>用 faux provider 写一个不花钱的测试，跑通一次完整的 tool call 往返。</li>
+              <li><code>pi --list-models</code>，然后在源码里找到这个列表是怎么拼出来的。</li>
+              <li>数一遍流式事件的类型：<code>start / text_* / thinking_* / toolcall_* / done / error</code>，并说明为什么每个事件都带一个 <code>partial</code> 字段。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li><code>stream()</code> 和 <code>streamSimple()</code> 的分工是什么？agent 层用的是哪个，为什么？</li>
+              <li>为什么 <code>thinkingLevel</code> 抽象成 <code>off / minimal / low / medium / high / xhigh / max</code>，而不是直接传 token 预算？</li>
+              <li>tool call 的参数是流式到达的。如果流到一半断了，Pi 怎么处理这「半个 JSON」？（提示：best-effort 抢救解析，然后被阶段 01 的截断保护兜住）</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            DeepSeek Harness 把这层做得更激进——连 model adapter 本身都是插件，「没有需要打补丁的特权内核」。
+            Pi 的选择是保留一个稳定内核 + <code>createProvider()</code> 扩展口。两种取舍各有代价：前者灵活但抽象层厚，后者简单但内核改动成本高。
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="stage" id="s03" data-n="03">
+          <div class="stage-head">
+            <h3>工具层：Agent-Computer Interface</h3>
+            <span class="dur">2 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>工具描述写得好不好，直接决定 agent 的行为质量。「好」的具体标准是什么？</p>
+
+          <p>
+            这个阶段有一处 Pi 特有的巧思值得注意：<strong>工具自带 system prompt 片段</strong>。
+            <code>edit.ts</code> 里导出的 <code>editToolSystemPromptContribution</code> 含一个 <code>snippet</code> 和一组 <code>guidelines</code>，
+            装配 system prompt 时按实际启用的工具动态拼进去。换句话说——<strong>是工具决定 prompt，而不是 prompt 里硬编码工具</strong>。
+            禁用某个工具，相关的指导语会自动消失。
+          </p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>src/core/tools/index.ts</code><span>八个内置工具的注册表。注意 <code>createCodingTools()</code> 默认只给四个：read / bash / edit / write</span></li>
+              <li><code>tools/read.ts:218</code><span>description 里明确写了截断规则和 offset/limit 续读协议——把「怎么用」直接写给模型看</span></li>
+              <li><code>tools/edit.ts:56</code><span><code>editToolSystemPromptContribution</code>，上面说的那个机制</span></li>
+              <li><code>tools/edit.ts:45</code><span>schema 里的约束：每个 <code>oldText</code> 对<strong>原文</strong>匹配、必须唯一、不许重叠</span></li>
+              <li><code>tools/truncate.ts</code><span>配合 <code>tools/output-accumulator.ts</code>：工具吐多少字节是 harness 说了算，不是命令说了算</span></li>
+              <li><code>tools/file-mutation-queue.ts</code><span>并行执行下同一文件的写冲突串行化</span></li>
+              <li><code>tools/bash.ts</code><span>进程生命周期、超时、abort、spawn hook（沙箱扩展点就在这里）</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>写一个自定义工具（用 extension 形式，见阶段 06 的写法）。先把 description 写得含糊，跑几轮；再按 Anthropic 的工具写作原则改好，对比模型的调用准确率。</li>
+              <li>把 <code>read</code> 工具的默认截断行数改到 20，观察模型会不会自己用 offset 续读——这就是在验证「description 即协议」。</li>
+              <li>在 <code>bash</code> 工具里加一行日志，打出每次实际执行的命令，跑一个真实任务，看模型的命令构造习惯。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>工具失败为什么必须 <code>throw</code> 而不是 <code>return</code> 一段错误文本？（提示：agent 捕获后置 <code>isError: true</code>，模型看到的语义不同）</li>
+              <li><code>read</code> 和 <code>bash + cat</code> 功能重叠，为什么还要单独做一个 <code>read</code>？</li>
+              <li>如果一次 assistant 回复里有三个 <code>edit</code> 调用改同一个文件，会发生什么？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            Anthropic 的工具设计三原则——职责不重叠、自包含且能容错、描述本身就是 prompt 工程。
+            另一个极端参考：DeepSeek Harness 的 minimal 预设只给两个工具（<code>bash</code> 和 <code>str_replace_editor</code>）。
+            读完这一阶段可以想想：Pi 的八个工具里，哪几个其实是 bash 的特化？特化换来了什么？
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="stage key" id="s04" data-n="04">
+          <div class="stage-head">
+            <h3>上下文工程与压缩</h3>
+            <span class="dur">2 天 · 第二难点</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>上下文窗口是一笔有限预算。谁在花？怎么花？花光了怎么办？</p>
+
+          <p>
+            先看「怎么花」。<code>buildSystemPrompt()</code> 的拼装顺序是固定的：
+            工具清单 → guidelines（由启用的工具决定）→ <code>appendSystemPrompt</code> → <code>&lt;project_context&gt;</code>（AGENTS.md 等）→ 技能索引 → 当前工作目录。
+            每一段都在抢同一份预算。
+          </p>
+
+          <figure>
+            <svg viewBox="0 0 660 200" role="img" aria-label="压缩机制：会话条目中较早的部分被摘要，firstKeptEntryId 之后的条目原样保留；下一次请求发送的是 system prompt 加摘要加保留条目">
+              <text class="svg-t-sm" x="20" y="20">会话条目 · append-only JSONL</text>
+
+              <rect class="svg-box-dim" x="20" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="46" y="54" text-anchor="middle">hdr</text>
+              <rect class="svg-box-dim" x="78" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="104" y="54" text-anchor="middle">usr</text>
+              <rect class="svg-box-dim" x="136" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="162" y="54" text-anchor="middle">ass</text>
+              <rect class="svg-box-dim" x="194" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="220" y="54" text-anchor="middle">tool</text>
+
+              <rect class="svg-box" x="252" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="278" y="54" text-anchor="middle">usr</text>
+              <rect class="svg-box" x="310" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="336" y="54" text-anchor="middle">ass</text>
+              <rect class="svg-box" x="368" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="394" y="54" text-anchor="middle">tool</text>
+              <rect class="svg-box" x="426" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="452" y="54" text-anchor="middle">ass</text>
+              <rect class="svg-box" x="484" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="510" y="54" text-anchor="middle">tool</text>
+              <rect class="svg-box-accent" x="542" y="30" width="52" height="38" rx="3"></rect>
+              <text class="svg-t-sm" x="568" y="54" text-anchor="middle">cmp</text>
+
+              <text class="svg-t-sm" x="133" y="86" text-anchor="middle">被摘要，不再发送</text>
+              <text class="svg-t-sm" x="394" y="86" text-anchor="middle">原样保留</text>
+
+              <line class="svg-line-accent" x1="250" y1="24" x2="250" y2="96"></line>
+              <text class="svg-t-accent" x="254" y="108">firstKeptEntryId</text>
+
+              <text class="svg-t-sm" x="20" y="140">下一次请求实际发送的内容</text>
+
+              <rect class="svg-box-dim" x="20" y="150" width="68" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="54" y="171" text-anchor="middle">system</text>
+              <rect class="svg-box-accent" x="94" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="120" y="171" text-anchor="middle">摘要</text>
+              <rect class="svg-box" x="152" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="178" y="171" text-anchor="middle">usr</text>
+              <rect class="svg-box" x="210" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="236" y="171" text-anchor="middle">ass</text>
+              <rect class="svg-box" x="268" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="294" y="171" text-anchor="middle">tool</text>
+              <rect class="svg-box" x="326" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="352" y="171" text-anchor="middle">ass</text>
+              <rect class="svg-box" x="384" y="150" width="52" height="34" rx="3"></rect>
+              <text class="svg-t-sm" x="410" y="171" text-anchor="middle">tool</text>
+              <text class="svg-t-sm" x="450" y="171">…</text>
+            </svg>
+            <figcaption>
+              压缩不删任何东西。它只<strong>追加</strong>一条 <code>cmp</code> 条目，里面记着摘要和一个 <code>firstKeptEntryId</code> 指针；
+              下次组装上下文时从这个指针开始读。原始条目全部留在磁盘上——所以压缩可回溯、可审计，也是 <code>/tree</code> 能工作的前提。
+            </figcaption>
+          </figure>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>src/core/system-prompt.ts:28</code><span><code>buildSystemPrompt()</code>，拼装顺序全在这一个函数里</span></li>
+              <li><code>docs/compaction.md</code><span>先读文档再读代码。里面那张 ASCII 图和上面这张说的是同一件事</span></li>
+              <li><code>core/compaction/compaction.ts:235</code><span><code>shouldCompact()</code>：<code>contextTokens &gt; contextWindow − reserveTokens</code></span></li>
+              <li><code>compaction.ts:128</code><span>默认值：<code>reserveTokens 16384</code>、<code>keepRecentTokens 20000</code></span></li>
+              <li><code>compaction.ts:388</code><span>从最新往回累加 token 找切点的算法</span></li>
+              <li><code>compaction/utils.ts</code><span><strong>重点。</strong>读过／改过的文件列表被单独抽出来跨压缩累积——摘要可以丢细节，文件清单不能丢</span></li>
+              <li><code>agent-loop.ts:284</code><span>再看一次 <code>transformContext</code> → <code>convertToLlm</code> 这条管线，现在你知道它为谁服务了</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>把 <code>~/.pi/agent/settings.json</code> 里的 <code>reserveTokens</code> 调到很大（比如上下文窗口的一半），跑个任务让自动压缩尽快触发。</li>
+              <li>压缩前后各存一份 session JSONL，diff 一下——确认原始条目一条都没少。</li>
+              <li>用 <code>/compact 只保留和构建脚本相关的内容</code> 这样的自定义指令跑一次，对比摘要差异。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>为什么压缩要保留 <code>firstKeptEntryId</code> 指针，而不是直接把旧条目删掉？（至少能说出三个理由）</li>
+              <li>为什么「读过哪些文件」要脱离摘要单独累积传递？丢了会出什么问题？</li>
+              <li>压缩本身也要调一次 LLM。这次调用的 session id 和 prompt cache 策略为什么要和主会话区别对待？</li>
+              <li>启用／禁用一个工具，system prompt 会变。这对 prompt cache 命中率意味着什么？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            Codex CLI 区分 <em>pre-turn</em> 和 <em>mid-turn</em> 两种压缩时机：前者在用户新回合前跑并清掉引用上下文，后者在工具执行途中撞到上限时跑。
+            Pi 的触发点在三处：新 prompt 前、工具批次完成后的回合间、以及一次 agent run 结束后。
+            Anthropic 那篇《Effective context engineering》里的一句话值得抄下来：目标是找到<strong>最小的高信号 token 集合</strong>。
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="stage" id="s05" data-n="05">
+          <div class="stage-head">
+            <h3>会话状态与分支树</h3>
+            <span class="dur">1–2 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>agent 会话不是线性对话，而是一棵可以回溯、分叉、重跑的树。用 append-only 的 JSONL 怎么表达一棵树？</p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>docs/session-format.md</code><span>完整的条目类型清单和文件位置约定</span></li>
+              <li><code>core/session-manager.ts:46</code><span><code>SessionEntryBase</code> 的 <code>id</code> / <code>parentId</code>——树就靠这两个字段</span></li>
+              <li><code>session-manager.ts:143</code><span><code>SessionEntry</code> 联合类型：消息、压缩、分支摘要都是条目</span></li>
+              <li><code>session-manager.ts:230</code><span>v1 → v2 迁移：给旧的线性序列补上 <code>parentId</code>。读这段能彻底理解树的设计动机</span></li>
+              <li><code>session-manager.ts:356</code><span>沿 <code>parentId</code> 回溯组装当前分支的上下文</span></li>
+              <li><code>compaction/branch-summarization.ts</code><span>切分支时如何保住上下文</span></li>
+              <li><code>docs/sessions.md</code><span><code>/tree</code>、<code>/resume</code>、fork 的用户侧语义</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>写一个脚本解析 <code>~/.pi/agent/sessions/**/*.jsonl</code>，统计每个会话的 token 用量、成本、工具调用分布。这是理解条目结构最快的方式。</li>
+              <li>在交互模式里用 <code>/tree</code> 回到几步之前，换个说法重跑，然后在 JSONL 里找到这次分叉——确认没有新建文件，只是多了一条 <code>parentId</code> 指向旧节点的条目。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>append-only 的文件如何做到「原地分支」而不复制？「当前分支」是怎么确定的？</li>
+              <li>为什么压缩条目和分支摘要条目要和消息条目放在同一个序列里，而不是单独存？</li>
+              <li>session 版本从 v1 到 v3 各解决了什么问题？如果你要加 v4，会怎么做？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            会话持久化是各家 harness 差异最大的地方，也最能看出产品取向：
+            纯线性追加（简单、够用）vs 树形分支（能回溯、能对比不同路线）。
+            Pi 选了后者，代价是压缩、上下文组装、UI 全部要按树来写。做自己的 harness 时，这是第一个要想清楚的取舍。
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="stage" id="s06" data-n="06">
+          <div class="stage-head">
+            <h3>扩展、技能与包</h3>
+            <span class="dur">2–3 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>harness 核心要小，能力要能长出来。扩展点该开在哪、开成什么形状？</p>
+
+          <p>
+            这里有整份路线最值得抄走的一个设计：<strong>技能的渐进式披露</strong>。
+            <code>formatSkillsForPrompt()</code> 只往 system prompt 里放每个技能的 <code>name</code>、<code>description</code> 和<strong>文件路径</strong>——三行。
+            真正的技能内容留在磁盘上，等模型判断任务匹配了，自己用 <code>read</code> 工具去加载。
+            一百个技能常驻上下文的成本，就这样被压到几百 token。
+          </p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>docs/extensions.md</code><span>通读。这是全仓库信息密度最高的一篇文档</span></li>
+              <li><code>core/extensions/types.ts:1298</code><span><code>tool_call</code> 事件——可以 <code>block</code> 也可以改参数，权限门禁就建在这里</span></li>
+              <li><code>core/extensions/types.ts:1267</code><span><code>session_before_compact</code>：连压缩策略都能被扩展接管</span></li>
+              <li><code>core/extensions/runner.ts</code><span>配合 <code>loader.ts</code>：扩展的发现、加载、执行顺序、错误隔离</span></li>
+              <li><code>core/skills.ts:355</code><span><code>formatSkillsForPrompt()</code>，上面说的那三行</span></li>
+              <li><code>docs/skills.md</code><span>Pi 实现的是公开的 Agent Skills 标准，不是私有格式</span></li>
+            </ul>
+            <p style="font-size:.9rem;color:var(--ink-mute);margin:.75rem 0 .3rem">
+              <code>examples/extensions/</code> 下有七十多个可运行示例，至少精读这五个：
+            </p>
+            <ul class="src tight">
+              <li><code>permission-gate.ts</code><span>拦截危险命令，最典型的 <code>tool_call</code> 用法</span></li>
+              <li><code>custom-compaction.ts</code><span>把阶段 04 的策略换成自己的</span></li>
+              <li><code>subagent/</code><span>在工具里嵌套一个完整 agent——多智能体的最小实现</span></li>
+              <li><code>plan-mode/</code><span>用扩展改变整个交互模式</span></li>
+              <li><code>git-checkpoint.ts</code><span>每回合打快照，分支时回滚。状态管理的实战</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>写一个 permission gate：拦住 <code>rm -rf</code> 和 <code>sudo</code>，弹确认框。放到 <code>.pi/extensions/</code> 里用 <code>/reload</code> 热加载。</li>
+              <li>写一个技能（仓库里就有现成参照：<code>.pi/skills/add-llm-provider.md</code>）。然后用 <code>/debug</code> 看它在 system prompt 里到底占了几行。</li>
+              <li>写一个自定义工具 + 一个自定义命令，体会 <code>registerTool</code> 和 <code>registerCommand</code> 的区别：前者给模型用，后者给人用。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>extension / skill / prompt template / 自定义工具，四者分别解决什么问题？为什么不能互相替代？</li>
+              <li>技能内容不进 system prompt，模型怎么知道该读它？如果模型不读会怎样？</li>
+              <li>项目级扩展（<code>.pi/extensions/</code>）为什么必须等项目被信任后才加载？</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            DeepSeek Harness 走到了另一端——界面、工具调用、agent loop 本身全部是插件，「没有特权内核」。
+            Claude Code 则是分层的：hooks 管拦截、skills 管知识、MCP 管外部集成。
+            Pi 的位置在中间：内核稳定，但扩展能碰到几乎所有生命周期事件。做取舍时问自己：<strong>改一个行为，你希望需要读多少代码？</strong>
+          </div>
+        </article>
+
+        <!-- 07 -->
+        <article class="stage" id="s07" data-n="07">
+          <div class="stage-head">
+            <h3>交互层与嵌入方式</h3>
+            <span class="dur">1–2 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>同一个 <code>AgentSession</code>，怎么同时服务终端 UI、脚本、IDE 插件和服务端？</p>
+
+          <p>
+            <code>agent-session.ts</code> 有 3500 行，<strong>不要通读</strong>。先看文件头那段注释（它明确列出了这个类承担的六项职责），
+            然后按方法名跳读：<code>prompt</code> / <code>steer</code> / <code>followUp</code> / <code>compact</code> / <code>navigateTree</code> / <code>bindExtensions</code>。
+            这个类的存在意义就是：把「模式无关」的逻辑收拢在一处，让四种 I/O 层各自只写自己的部分。
+          </p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>core/agent-session.ts:1</code><span>文件头注释。六项职责，一句一项</span></li>
+              <li><code>core/agent-session.ts:1160</code><span><code>prompt()</code>，从用户输入到 agent 启动的完整路径</span></li>
+              <li><code>modes/index.ts</code><span>三种运行模式的出口：interactive / print / rpc</span></li>
+              <li><code>packages/tui/README.md</code><span>差分渲染、CSI 2026 同步输出、bracketed paste。终端 UI 的工程难点</span></li>
+              <li><code>docs/sdk.md</code><span>配合 <code>examples/sdk/01…13</code>：从 <code>01-minimal.ts</code>（十行起一个会话）按序跑到 <code>13-session-runtime.ts</code></span></li>
+              <li><code>docs/rpc.md</code><span>配合 <code>docs/json.md</code>：给 IDE 和脚本用的两种结构化接口</span></li>
+              <li><code>packages/protocol/README.md</code><span>四字节长度前缀 + CBOR。实验性的服务端协议</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>按序跑完十三个 SDK 示例，每个都改一处再跑。这是把前六个阶段串起来的最好方式。</li>
+              <li>用 <code>pi -p "..."</code> 的 print 模式 + JSON 事件流驱动一次任务，把事件流存下来画个时序图。</li>
+              <li>照 <code>AGENTS.md</code> 里的 tmux 方法跑一次交互模式，用 <code>tmux capture-pane</code> 抓屏——顺便学会怎么自动化测试 TUI。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li><code>AgentSession</code> 相比裸 <code>Agent</code> 多承担了哪些职责？为什么这些不放进 <code>packages/agent</code>？</li>
+              <li>为什么要单独做 RPC 模式，print + JSON 事件流不够吗？</li>
+              <li>差分渲染为什么对 agent CLI 特别重要？（提示：流式 token + 每秒多次重绘）</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            Codex 把 reasoning loop 和 tool execution 拆成两端，好处是能做无状态请求、满足 Zero Data Retention。
+            Pi 的 protocol / client / server 三个包正在往类似方向探索（标注为 experimental）。
+            如果你要做的是「本地跑但远程可观测」的产品形态，这三个包值得单独花时间。
+          </div>
+        </article>
+
+        <!-- 08 -->
+        <article class="stage" id="s08" data-n="08">
+          <div class="stage-head">
+            <h3>评测、安全与运维</h3>
+            <span class="dur">1–2 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>你改了 prompt、换了工具描述、调了压缩阈值。<strong>怎么证明这是进步而不是退步？</strong></p>
+
+          <div class="block">
+            <h4>读什么</h4>
+            <ul class="src">
+              <li><code>packages/evals/README.md</code><span>把真实 <code>AgentSession</code> 接进 vitest-evals，在隔离的临时目录里跑</span></li>
+              <li><code>packages/evals/src/pi-harness.ts</code><span>harness 配置项：换模型、换工具集、换技能，都能做成对照组</span></li>
+              <li><code>packages/telemetry/README.md</code><span>厂商中立的遥测契约 + 一致性测试</span></li>
+              <li><code>docs/security.md</code><span>配合 <code>SECURITY.md</code>：威胁模型。注意 Pi <strong>刻意不内置权限系统</strong></span></li>
+              <li><code>docs/containerization.md</code><span>三种沙箱方案：Gondolin 微 VM / Docker / OpenShell</span></li>
+              <li><code>core/trust-manager.ts</code><span>项目信任门禁——未信任的项目不加载其扩展和技能</span></li>
+              <li><code>README.md</code><span>供应链一节：依赖锁定、<code>min-release-age=2</code>、shrinkwrap 校验。这也是 harness 的一部分</span></li>
+            </ul>
+          </div>
+
+          <div class="block lab">
+            <h4>动手</h4>
+            <ul class="plain">
+              <li>写一个 eval：同一个任务，两版 system prompt，跑十次看差异。这会立刻改变你对「prompt 调优」的感觉。</li>
+              <li>把阶段 03 里改坏的工具描述做成对照组，用 eval 量化它到底差多少。</li>
+              <li>按 <code>containerization.md</code> 用 Docker 跑一次 Pi，感受权限边界在哪。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>自检</h4>
+            <ul class="check">
+              <li>为什么 Pi 不内置权限系统，而是把边界推给容器？这个决定的代价是什么？</li>
+              <li>evals 和单元测试的区别是什么？为什么 evals 必须用真模型，而 suite 测试要用 faux provider？</li>
+              <li>项目信任机制防的是什么攻击？（提示：clone 一个仓库，它的 <code>.pi/extensions/</code> 里有代码）</li>
+            </ul>
+          </div>
+
+          <div class="mirror">
+            <b>业界对照</b>
+            这是最容易被跳过、也最能拉开差距的一环。「同一个模型换 harness 差十几个百分点」这个结论，
+            正是靠这类可复现的评测得出来的。没有 evals，你对 harness 的所有改动都只是在凭感觉。
+          </div>
+        </article>
+
+        <!-- 09 -->
+        <article class="stage final" id="s09" data-n="09">
+          <div class="stage-head">
+            <h3>毕业项目：造一个 mini harness</h3>
+            <span class="dur">3–5 天</span>
+          </div>
+          <p class="qline"><b>核心问题：</b>你真的懂了吗？唯一的验证方式是自己造一个，然后数一数你省略了什么。</p>
+
+          <div class="block lab">
+            <h4>目标：300 行以内，包含五件事</h4>
+            <ul class="plain">
+              <li><strong>循环</strong>——单层就行，但必须正确处理 <code>stopReason</code> 的每一种取值。</li>
+              <li><strong>三个工具</strong>——<code>read</code> / <code>bash</code> / <code>edit</code>，带截断和错误抛出。</li>
+              <li><strong>压缩</strong>——超过阈值就摘要，保留最近 N token，记住读过的文件。</li>
+              <li><strong>持久化</strong>——JSONL 追加，能 resume。树可以先不做。</li>
+              <li><strong>一个扩展点</strong>——工具执行前的拦截钩子，能 block。</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h4>然后做这件更重要的事</h4>
+            <p>
+              把你的 300 行和 Pi 逐项对照，列一张<strong>「我省略了什么 / 代价是什么」</strong>的表。
+              比如：没做 steering（用户无法打断）、没做并行工具（慢一倍）、没做截断保护（会执行半个命令）、
+              没做 abort 传播（Ctrl-C 杀不掉子进程）、没做文件写队列（并发改同一文件会丢改动）。
+            </p>
+            <p>这张表就是你对 harness 工程的真实理解。<strong>它比任何笔记都值钱。</strong></p>
+          </div>
+
+          <div class="block">
+            <h4>进阶</h4>
+            <ul class="plain">
+              <li>给 Pi 提一个 PR。先读 <code>CONTRIBUTING.md</code>——新贡献者的 issue 和 PR 默认会被自动关闭、由维护者每天人工复核，所以质量门槛要按最高标准来。</li>
+              <li>用阶段 08 的 evals 给你的改动做量化证明，附在 PR 里。</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ PITFALLS ============ -->
+    <section id="pitfalls">
+      <h2 class="sec">五个常见误区</h2>
+      <ul class="pitfalls">
+        <li class="pitfall">
+          <span class="no">01</span>
+          <div>
+            <p>一上来就读 <code>agent-session.ts</code>（3500 行）。</p>
+            <p class="fix">先读 <code>agent-loop.ts</code>（794 行）。前者是后者的装配层，不理解循环就看不懂装配。</p>
+          </div>
+        </li>
+        <li class="pitfall">
+          <span class="no">02</span>
+          <div>
+            <p>以为 harness 的难点在 prompt 写作。</p>
+            <p class="fix">难点在错误处理、输出截断、并发写冲突、中断传播、状态恢复。翻一遍 <code>agent-loop.ts</code> 里的注释就明白了——注释几乎全在解释边界情况。</p>
+          </div>
+        </li>
+        <li class="pitfall">
+          <span class="no">03</span>
+          <div>
+            <p>直接改 <code>packages/ai/src/models.generated.ts</code>。</p>
+            <p class="fix">它是生成产物。改 <code>packages/ai/scripts/generate-models.ts</code> 再重新生成——<code>AGENTS.md</code> 里明确写了这条。</p>
+          </div>
+        </li>
+        <li class="pitfall">
+          <span class="no">04</span>
+          <div>
+            <p>用真 API key 跑测试，烧钱又不稳定。</p>
+            <p class="fix">套件测试用 <code>test/suite/harness.ts</code> + faux provider；只有 evals 才需要真模型。根目录跑 <code>./test.sh</code> 会自动跳过依赖 LLM 的测试。</p>
+          </div>
+        </li>
+        <li class="pitfall">
+          <span class="no">05</span>
+          <div>
+            <p>改完就发，靠感觉判断变好了。</p>
+            <p class="fix">先写 eval 再改代码。harness 的很多改动是「这里好了那里坏了」，凭感觉必然翻车。</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ COMPARE ============ -->
+    <section id="compare">
+      <h2 class="sec">横向对照速查</h2>
+      <p>读 Pi 的时候随时可以回来对一眼：同一个问题，别家是怎么解的。</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>维度</th><th>Pi</th><th>Claude Code</th><th>Codex CLI</th><th>DeepSeek Harness</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>可读性</td><td>开源 TypeScript，核心循环 794 行</td><td>闭源，靠公开分析</td><td>开源 Rust</td><td>开源，插件化</td></tr>
+            <tr><td>架构取向</td><td>小内核 + 扩展点</td><td>分层：hooks / skills / MCP</td><td>reasoning 与 tool execution 分离</td><td>一切皆插件，无特权内核</td></tr>
+            <tr><td>压缩时机</td><td>prompt 前 · 回合间 · run 结束后</td><td>阈值触发 + 手动</td><td>pre-turn 与 mid-turn 分开</td><td>插件可替换</td></tr>
+            <tr><td>会话形态</td><td>JSONL 树，可原地分支</td><td>可 resume / fork</td><td>无状态请求（ZDR）</td><td>插件可替换</td></tr>
+            <tr><td>工具集</td><td>八个内置，默认启用四个</td><td>较多，含子 agent</td><td>以 shell 为中心</td><td>minimal 预设只给两个</td></tr>
+            <tr><td>权限边界</td><td>不内置，推荐容器化</td><td>内置权限模式</td><td>内置沙箱</td><td>插件可替换</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ SOURCES ============ -->
+    <section id="sources">
+      <h2 class="sec">参考资料</h2>
+      <p>路线里引用的外部结论都出自这些来源，建议在阶段 00 和阶段 09 各读一遍——同一篇文章在你懂之前和懂之后读，收获完全不同。</p>
+      <ul class="sources">
+        <li><span class="n">01</span><span><a class="ext" href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a> — Anthropic。阶段 04 的理论基础。</span></li>
+        <li><span class="n">02</span><span><a class="ext" href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing effective tools for AI agents</a> — Anthropic。阶段 03 必读。</span></li>
+        <li><span class="n">03</span><span><a class="ext" href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective AI Agents</a> — Anthropic。三条核心原则：保持简单、显式展示规划、精心设计 agent-computer interface。</span></li>
+        <li><span class="n">04</span><span><a class="ext" href="https://openai.com/index/unrolling-the-codex-agent-loop/">Unrolling the Codex agent loop</a> — OpenAI。阶段 01 的对照读物。</span></li>
+        <li><span class="n">05</span><span><a class="ext" href="https://codex.danielvaughan.com/2026/03/31/codex-cli-context-compaction-architecture/">Codex CLI Context Compaction: Architecture</a> — pre-turn 与 mid-turn 压缩的区别。</span></li>
+        <li><span class="n">06</span><span><a class="ext" href="https://github.com/deepseek-ai/deepseek-harness">deepseek-ai/deepseek-harness</a> — 「一切皆插件」的参照系。</span></li>
+        <li><span class="n">07</span><span><a class="ext" href="https://www.mindstudio.ai/blog/what-is-agent-harness-architecture-explained">What Is an Agent Harness?</a> — MindStudio。harness 四要素与「1.6% / 98.4%」这个比例的出处。</span></li>
+        <li><span class="n">08</span><span><a class="ext" href="https://github.com/VILA-Lab/Dive-into-Claude-Code">Dive-into-Claude-Code</a> — Claude Code 的系统性分析，闭源部分的最佳替代资料。</span></li>
+        <li><span class="n">09</span><span><a class="ext" href="https://github.com/ai-boost/awesome-harness-engineering">awesome-harness-engineering</a> — 工具、模式、评测、记忆、MCP、权限、可观测性的索引。</span></li>
+        <li><span class="n">10</span><span><a class="ext" href="https://agentskills.io/specification">Agent Skills 标准</a> — Pi 的技能实现遵循的规范。</span></li>
+      </ul>
+    </section>
+
+    <footer class="end">
+      行号对应 pi-mono v0.84.4。仓库演进较快，若行号对不上，按函数名或注释文本搜索即可。
+      遇到卡壳时还有一个办法：Pi 的 system prompt 里内置了自己的文档路径——直接在 Pi 里问它「你的 agent loop 是怎么工作的」，它会去读源码回答你。
+    </footer>
+
+  </main>
+</div>
+</div>
